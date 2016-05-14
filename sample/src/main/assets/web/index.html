@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SafeWebView Test</title>
+    <meta name="viewport" content="width=device-width"/>
+    <script type="text/javascript">
+		function invokeJavaMethod(statement) {
+			return prompt('JsInvoker::' + statement);
+		}
+
+		function showToast(data) {
+			invokeJavaMethod('Android.showToast(' + data + ')');
+		}
+
+		function getCpuAbi() {
+		    var data = invokeJavaMethod('Android.getCpuAbi()');
+		    var cpu_abi = document.getElementById('cpu_abi');
+		    cpu_abi.innerHTML = data;
+		}
+
+		function showCommonPrompt(message) {
+		    var data = prompt(message);
+		    var common_prompt = document.getElementById('common_prompt');
+		    common_prompt.innerHTML = data;
+		}
+	</script>
+</head>
+<body>
+<button onclick="showToast('A toast showing through js')">show toast</button><br/><br/><br/>
+<button onclick="getCpuAbi()">Get CPU_ABI</button><span id="cpu_abi"></span><br/><br/><br/>
+<button onclick="showCommonPrompt('common prompt')">show common prompt</button><span id="common_prompt"></span><br/>
+</body>
+</html>
