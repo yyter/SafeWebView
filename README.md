@@ -81,12 +81,40 @@ prompt('JsInvoker::JavaIdentifier.method(param1, param2, param3)');
 ```
 
 * 参数注意事项:
-	1. 所有参数都必需是 String 类型
-	2. js调用中,字符串不需要加 单引号`'`和双引号`"`, 以`,`分隔
-	3. 逗号`,`,右括号`)`,反斜线`\`需要转义: `\,`,`\)`,`\\`
-	4. 其他需要转义的有: `\n`, `\r`, `\b`, `\f`, `\t`
-	5. 不支持已 `\0`开头的八进制和`\u`开头的Unicode字符(可以通过添加一个`\`来将其转为一个普通字符串)
-	6. 不符合上述约束时,将产生一个语法错误(Java层会捕获这个错误,不会崩溃)
+	* 所有参数都必需是 String 类型
+	* js调用中,字符串不需要加 单引号`'`和双引号`"`, 以`,`分隔
+	
+	```javascript
+	例如:
+	// Java 得到2个参数:
+	//param1
+	//param2
+	prompt("JsInvoker::Android.getData(param1, param2)");
+
+	// Java 得到1个参数(包括单引号和空格):
+	//'"par   am
+	prompt("JsInvoker::Android.getData('"par   am)");
+	```
+	
+	* 逗号`,`,右括号`)`,反斜线`\`需要转义: `\,`,`\)`,`\\`
+
+	```javascript
+	//Java 得到1个参数:
+	//par,a)m
+	prompt("JsInvoker::Android.getData(par\,a\)m)");
+
+	//Java 得到2个参数:
+	//par
+	//a)m
+	prompt("JsInvoker::Android.getData(par,a\)m)");
+	
+	//语法错误
+	prompt("JsInvoker::Android.getData(par,a)m)");
+	```
+	
+	* 其他需要转义的有: `\n`, `\r`, `\b`, `\f`, `\t`
+	* 不支持以 `\0`开头的八进制和`\u`开头的Unicode字符(可以通过添加一个`\`来将其转为一个普通字符串)
+	* 不符合上述约束时,将产生一个语法错误(Java层会捕获这个错误,不会崩溃)
 
 ##### java方法注意点
 1. 提供给js的java方法都必须添加`@JavascriptInvoker`
