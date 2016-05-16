@@ -92,8 +92,8 @@ prompt('JsInvoker::JavaIdentifier.method(param1, param2, param3)');
 	prompt("JsInvoker::Android.getData(param1, param2)");
 
 	// Java 得到1个参数(包括单引号和空格):
-	//'"par   am
-	prompt("JsInvoker::Android.getData('"par   am)");
+	//'par   am
+	prompt("JsInvoker::Android.getData('par   am)");
 	```
 	
 	* 逗号`,`,右括号`)`,反斜线`\`需要转义: `\,`,`\)`,`\\`
