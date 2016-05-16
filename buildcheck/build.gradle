@@ -26,3 +26,5 @@ configurations {
 dependencies {
     provided fileTree(dir: 'libs-ref', include: ['*.jar'])
 }
+
+apply from: '../gradle-mvn-publish.gradle'
