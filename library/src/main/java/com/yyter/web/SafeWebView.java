@@ -19,6 +19,9 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 
 /**
+ * <p>一个安全的WebView.可以避免js反射带来的安全问题.</p>
+ * 注意使用{@link #addJavascriptInvoker(Object, String)} 代替 {@link #addJavascriptInterface(Object, String)}<br/>
+ * 其他和WebView使用方法一致
  * Created by liyang on 5/12/16.
  */
 public class SafeWebView extends WebView {
@@ -57,6 +60,8 @@ public class SafeWebView extends WebView {
     }
 
     /**
+     * 代替 {@link android.webkit.WebView#addJavascriptInterface(Object, String)}方法,
+     * 用法和其一致.<br/>
      * <font color=red>Call from UI thread</font>
      */
     public void addJavascriptInvoker(Object javaBridge, String identifier) {
