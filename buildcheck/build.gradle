@@ -1,0 +1,28 @@
+apply plugin: 'java'
+
+targetCompatibility = 1.7
+sourceCompatibility = 1.7
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+//sourceSets {
+//    main {
+//        resources {
+//            include 'META-INF/services/**'
+//        }
+//    }
+//}
+
+configurations {
+    provided {
+        // make it a private Ivy configuration
+        visible = false
+    }
+    compile.extendsFrom provided
+}
+
+dependencies {
+    provided fileTree(dir: 'libs-ref', include: ['*.jar'])
+}
