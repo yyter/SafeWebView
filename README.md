@@ -3,6 +3,20 @@
 (javascript可以通过WebView添加的Java bridge对象,反射取到Runtime,然后执行shell命令等  
 不受native app控制的操作, 具体的例子参见: [Android webview(三) addJavascriptInterface的安全问题](http://my.oschina.net/fengheju/blog/673629))
 
+### 项目模块
+* library: 提供了SafeWebView和JavascriptInvoker, 也是其他项目需要依赖的部分
+* buildcheck: 提供编译时的方法检查(建议通过 debugCompile 依赖)
+* sample: 提供一个使用的例子
+
+### 集成
+```groovy
+//gradle 依赖
+compile 'com.yyter.web:SafeWebView:1.0.0'
+
+//用于检测提供给js的方法是否合法 (可选,但建议添加)
+debugCompile 'com.yyter.web:SafeWebView-buildcheck:1.0.0'
+```
+
 ### 实现方式
 通过js的prompt()方法以及WebChromeClient的onJsPrompt()回调进行通信.
 
@@ -120,8 +134,3 @@ prompt('JsInvoker::JavaIdentifier.method(param1, param2, param3)');
 1. 提供给js的java方法都必须添加`@JavascriptInvoker`
 2. 所有通过`@JavascriptInvoker`提供给js的java方法都必须是`public`的,并且要么不需要参数,要么所有参数都是`String`, 否则该方法不会提供给js.
 3. 可以通过`debugCompile`来依赖`buildcheck`模块,它会在编译时检查`@JavascriptInvoker`对应的方法是否合法,如果不合法,会产生一个编译错误.
-
-### 项目模块
-* library: 提供了SafeWebView和JavascriptInvoker, 也是其他项目需要依赖的部分
-* buildcheck: 提供编译时的方法检查(建议通过 debugCompile 依赖)
-* sample: 提供一个使用的例子
